@@ -1,0 +1,22 @@
+{
+  "name": "robwhit.sh",
+  "version": "1.0.0",
+  "description": "robwhit.sh",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rmw2/robwhit.sh.git"
+  },
+  "author": "rob whitaker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rmw2/robwhit.sh/issues"
+  },
+  "homepage": "https://github.com/rmw2/robwhit.sh#readme",
+  "dependencies": {
+    "typewriter-effect": "^2.17.0"
+  }
+}

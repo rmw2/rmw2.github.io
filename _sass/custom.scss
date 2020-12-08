@@ -1,0 +1,54 @@
+
+/**
+ * Modifiers & markdown elements
+ */
+strong {
+ color: #E494D3; 
+}
+
+em {
+ color: #C2D5A7; 
+}
+
+a {
+ color: #A3D6D4; 
+}
+code {
+ color: #998AD3; 
+}
+
+h1.center {
+  font-size: 4em; 
+  margin: auto; 
+  text-align: center; 
+}
+
+p.center {
+  text-align: center;
+}
+
+/**
+ * Images
+ */
+img {
+ border-radius: 0.5em; 
+}
+
+img.right {
+ float: right; 
+}
+
+img.center {
+ margin: auto; 
+ display: block; 
+}
+
+img.small {
+ width: 20em; 
+}
+
+/**
+ * Boxes and things
+ */
+
+
