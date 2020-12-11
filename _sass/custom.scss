@@ -1,3 +1,4 @@
+$purp: #998AD3;
 
 /**
  * Modifiers & markdown elements
@@ -13,8 +14,9 @@ em {
 a {
  color: #A3D6D4; 
 }
-code {
- color: #998AD3; 
+
+code, .purp {
+ color: $purp; 
 }
 
 h1.center {
@@ -50,5 +52,25 @@ img.small {
 /**
  * Boxes and things
  */
+a.wrapper:hover {
+  background-color: var(--background-color);
+  color: var(--base-color);
+}
 
+div.account-item {
+  display: inline-block;
+}
 
+pre.ascii-art {
+  line-height: 100%;
+  display: inline-block;
+  padding: 0.5em;
+}
+
+.center-wrapper {
+  text-align: center;
+}
+
+.hidden {
+  display: none;
+}

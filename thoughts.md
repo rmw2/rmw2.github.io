@@ -4,4 +4,4 @@ title: ~/thoughts
 permalink: /thoughts/
 ---
 
-# I think sometimes
+# i think sometimes

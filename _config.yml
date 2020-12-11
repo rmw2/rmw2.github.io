@@ -25,11 +25,18 @@ url: "http://robwhit.sh" # the base hostname & protocol for your site, e.g. http
 
 # Build settings
 markdown: kramdown
+
+# This is fake; github pages just needs a theme name or it won't publish.
 theme: jekyll-theme-console
 
 # Site params
 collections:
-  - projects
+  projects:
+    output: true
+  links:
+    output: true
+  ascii_art:
+    output: true
 
 style: dark
 header_pages:

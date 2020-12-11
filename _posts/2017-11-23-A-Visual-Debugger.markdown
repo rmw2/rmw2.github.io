@@ -16,7 +16,7 @@ This post is about _Processable_, the visual debugger and program tracer that I 
 One of the most useful tools on the belt of the Computer Science educator is the program trace.  In almost every introductory Computer Science class in any language, the instructor will at some point take the time to walk through a program's execution step by step.  Depending on the context, they may include any number of details after each step. This may include listing variable names and values, drawing the function call stack, or even sketching out the layout of the program's data in memory.
 
 <div markdown="1" class="center-content">
-![Program Trace]({{ "/assets/stackExcerptLoop.gif" | absolute_url }})
+![Program Trace]({{ "/assets/img/stackExcerptLoop.gif" | absolute_url }})
 </div>
 
 While taking the _Introduction to Systems Programming (COS217)_ course at Princeton, we would see an instructor perform a trace almost every class.  Even further, we were provided with PDFs of step-by-step program trace cartoons as supplementary material, generated manually in LibreOffice by Bob Dondero.  The traces were incredibly helpful for understanding, but performing them on a blackboard is onerous, and making them into a PDF even more so.  This project is an attempt to automate the process of tracing a specific subset of programs, and will ideally double as a primitive but easy-to-use debugger for small pieces of academic software.

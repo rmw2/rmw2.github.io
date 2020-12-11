@@ -8,7 +8,7 @@ permalink: /me
 
 my name is rob whitaker, though you may know me by one of many nicknames and diminutives, which i tell myself are bestowed affectionately. some of these include:
 
-![it me]({{ "/assets/me.png" | absolute_url }}){: .image .small .right }
+![it me]({{ "/assets/img/me.png" | absolute_url }}){: .image .small .right }
 
  - robiño &nbsp;&nbsp;&nbsp;&nbsp;*("raw bean yo")*
  - robinho &nbsp;&nbsp;&nbsp;*("ho bean you")*
