@@ -1,0 +1,21 @@
+---
+layout: default
+---
+
+{{ content }}
+
+<div id="projects-list">
+{% for proj in site.projects %}
+  <div class="project {% cycle "left", "right" %}">
+    <img height="100" class="project-img" src="{{ proj.img | relative_url }}"/>
+    <div class="project-details">
+      <h3 class="project-title">{{ proj.title }}</h3>
+      <h4 class="project-tagline">{{ proj.tagline }}</h4>
+      <span class="project-desc">{{ proj.desc }}</span>
+      <a class="project-homepage" href="{{ proj.permalink | absolute_url }}">read more</a>
+      {% if proj.github != "" %}<a class="project-github" href="{{ proj.github }}">github</a>{% endif %}
+      {% if proj.live != "" %}<a class="project-live" href="{{ proj.live }}">check it out!</a>{% endif %}
+    </div>
+  </div>
+{% endfor %}
+</div>

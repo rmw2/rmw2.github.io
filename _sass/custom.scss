@@ -74,3 +74,29 @@ pre.ascii-art {
 .hidden {
   display: none;
 }
+
+div.project {
+  margin: 1em;
+}
+
+img.project-img {
+  margin: 1em;
+}
+
+.project.left > img.project-img {
+  float: left;
+}
+
+.project.right > img.project-img {
+  float: right;
+}
+
+h3.project-title {
+  color: $purp;
+  margin: 0 1em;
+}
+
+h4.project-tagline {
+  font-style: italic;
+  margin: 0;
+}
