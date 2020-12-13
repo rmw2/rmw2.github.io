@@ -9,10 +9,10 @@
   {% endif %}
   
   {% if layout.js %} 
-    <script src="{{ layout.js | absolute_url }}" type="text/javascript"></script>
+    <script src="{{ layout.js | relative_url }}" type="text/javascript"></script>
   {% endif %}
   {% if page.js %}
-    <script src="{{ page.js | absolute_url }}" type="text/javascript"></script>
+    <script src="{{ page.js | relative_url }}" type="text/javascript"></script>
   {% endif %}
 
   {%- if site.listen_for_clients_preferred_style -%}
