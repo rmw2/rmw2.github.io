@@ -37,8 +37,7 @@ collections:
 
 style: dark
 header_pages:
-  - ~.md
-  - home.md
+  - ～.md
   - me.md
   - projects.md
     #  - thoughts.md

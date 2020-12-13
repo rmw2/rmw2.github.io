@@ -33,28 +33,44 @@ header p { text-align: left;  margin: 0; }
 
 header, main, footer {
   position: absolute;
-  width: 100%;
   background: var(--background-color);
+  width: 100%;
+}
+
+/* Wipe-in effect */
+@keyframes wipe {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@keyframes wipe-down {
+  from { height: 0; }
+  to { height: calc(100% - 10em); }
+}
+
+header, footer {
+  overflow: hidden;
+  animation: wipe 0.25s;
 }
 
 header {
-  margin-top: 2em;
-  margin-bottom: 1em;
+  margin-top: 1em;
   left: 0;
   top: 0;
-  height: 3em;
+  height: 4em;
 }
 
 main {
   top: 6em;
-  height: calc(100% - 11em);
+  height: calc(100% - 10em);
   padding: 1em 0;
+  animation: wipe-down 1s;
   overflow-y: scroll;
 }
 
 footer {
-  bottom: 2em;
-  height: 3em;
+  bottom: 0;
+  height: 5em;
 }
 
 

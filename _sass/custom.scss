@@ -5,6 +5,26 @@ $pink: #E494D3;
 $green: #C2D5A7; 
 $blue: #A3D6D4; 
 
+
+/* Switch for ascii art on mobile vs. desktop */
+pre#banner-mobile { display: inline-block; }
+pre#banner-desktop { display: none; }
+
+@media screen and (min-width: 800px) {
+  pre#banner-desktop { display: inline-block; }
+  pre#banner-mobile { display: none; }
+}
+
+pre.ascii-art {
+  line-height: 100%;
+  padding: 0.5em;
+  text-align: initial;
+}
+
+.center-wrapper {
+  text-align: center;
+}
+
 /* Page layout customization */
 /**
  * Modifiers & markdown elements
@@ -65,16 +85,6 @@ a.wrapper:hover {
 
 div.account-item {
   display: inline-block;
-}
-
-pre.ascii-art {
-  line-height: 100%;
-  display: inline-block;
-  padding: 0.5em;
-}
-
-.center-wrapper {
-  text-align: center;
 }
 
 .hidden {
