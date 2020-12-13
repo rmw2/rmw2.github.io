@@ -1,10 +1,13 @@
+
+/* Colors broh */
 $purp: #998AD3;
+$pink: #E494D3;
 
 /**
  * Modifiers & markdown elements
  */
 strong {
- color: #E494D3; 
+ color: $pink; 
 }
 
 em {
@@ -77,23 +80,45 @@ pre.ascii-art {
 
 div.project {
   margin: 1em;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+}
+
+div.project.left {
+  flex-direction: row;
+}
+
+div.project.right {
+  flex-direction: row-reverse;
 }
 
 img.project-img {
   margin: 1em;
 }
 
-.project.left > img.project-img {
-  float: left;
+div.project-header {
+  display: flex;
+  justify-content: space-between;
 }
 
-.project.right > img.project-img {
-  float: right;
+div.project-links {
+  display: flex;
+  width: 40%;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+div.project-links > a {
+  display: inline-block;
+  text-decoration: none;
+  padding: 0 0.5em;
+  color: $pink;
 }
 
 h3.project-title {
   color: $purp;
-  margin: 0 1em;
+  margin: 0;
 }
 
 h4.project-tagline {
