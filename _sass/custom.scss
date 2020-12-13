@@ -2,20 +2,23 @@
 /* Colors broh */
 $purp: #998AD3;
 $pink: #E494D3;
+$green: #C2D5A7; 
+$blue: #A3D6D4; 
 
+/* Page layout customization */
 /**
  * Modifiers & markdown elements
  */
-strong {
+strong, .pink {
  color: $pink; 
 }
 
-em {
- color: #C2D5A7; 
+em, .green {
+ color: $green;
 }
 
-a {
- color: #A3D6D4; 
+a, .blue {
+ color: $blue;
 }
 
 code, .purp {
@@ -139,3 +142,11 @@ h4.project-tagline {
   }
 }
 
+/* Homepage styles */
+div#terminal {
+  width: 100%;
+  min-height: 2em;
+  color: #fff;
+  line-height: 2em;
+  font-weight: bold;
+}

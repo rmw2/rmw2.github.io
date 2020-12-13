@@ -4,7 +4,9 @@
   "description": "robwhit.sh",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "./node_modules/.bin/webpack --watch | bundle exec jekyll serve --incremental",
+    "build": "./node_modules/.bin/webpack && bundle exec jekyll build"
   },
   "repository": {
     "type": "git",
@@ -17,6 +19,15 @@
   },
   "homepage": "https://github.com/rmw2/robwhit.sh#readme",
   "dependencies": {
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "typewriter-effect": "^2.17.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.10",
+    "babel-loader": "^8.2.2",
+    "webpack": "^5.10.1",
+    "webpack-cli": "^4.2.0"
   }
 }

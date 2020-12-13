@@ -1,19 +1,8 @@
 ---
-title: ~/
-layout: home
+title: /
+layout: default
 permalink: /
+js: /assets/js/index.js
 ---
 
-<div id="banner" class="center-wrapper">
-<pre class="ascii-art purp">
-            __                   __          __                __         
-           /\ \                 /\ \      __/\ \__            /\ \        
- _ __   ___\ \ \____  __  __  __\ \ \___ /\_\ \ ,_\       ____\ \ \___    
-/\`'__\/ __`\ \ '__`\/\ \/\ \/\ \\ \  _ `\/\ \ \ \/      /',__\\ \  _ `\  
-\ \ \//\ \L\ \ \ \L\ \ \ \_/ \_/ \\ \ \ \ \ \ \ \ \_  __/\__, `\\ \ \ \ \ 
- \ \_\\ \____/\ \_,__/\ \___x___/' \ \_\ \_\ \_\ \__\/\_\/\____/ \ \_\ \_\
-  \/_/ \/___/  \/___/  \/__//__/    \/_/\/_/\/_/\/__/\/_/\/___/   \/_/\/_/
-</pre>
-</div>
-
-this site is a WIP.  pls don't judge me.
+<div id="terminal"></div>

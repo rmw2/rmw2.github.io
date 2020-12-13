@@ -7,6 +7,13 @@
   {% if page.robots %}
     <meta name="robots" content="{{page.robots}}" />
   {% endif %}
+  
+  {% if layout.js %} 
+    <script src="{{ layout.js | absolute_url }}" type="text/javascript"></script>
+  {% endif %}
+  {% if page.js %}
+    <script src="{{ page.js | absolute_url }}" type="text/javascript"></script>
+  {% endif %}
 
   {%- if site.listen_for_clients_preferred_style -%}
     <link rel="stylesheet" type="text/css" href="{{ "/assets/main.css" | relative_url }}">
