@@ -6,4 +6,3 @@ Gemfile.lock
 node_modules
 .jekyll-cache
 *.DS_Store
-assets/js
