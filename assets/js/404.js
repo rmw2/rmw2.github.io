@@ -1,0 +1,1 @@
+(()=>{var a=window.location.pathname;if(a.startsWith("/~")){var i="/～"+a.substring(2);window.location.replace(i)}})();
