@@ -3,6 +3,7 @@ const path = require("path");
 const entryPoints = [
   "index",
   "404",
+  "page"
 ]
 
 module.exports = {

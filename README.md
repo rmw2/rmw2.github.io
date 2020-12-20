@@ -1,6 +1,6 @@
 # robwhit.sh
 
-
+Sup, this is my website.  It's a funky hack on a jekyll lf
 
 ## Hacks
 

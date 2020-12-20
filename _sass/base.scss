@@ -9,30 +9,47 @@ $mobile-font-size:     12px !default;
 $base-line-height:     1.5 !default;
 $container-width:      90% !default;
 $container-max-width:  900px !default;
-
+      
+$balling-bg: #5f5681;
+$shadow-color: #423;
 /**
  * Global
  */
 * { box-sizing: border-box; }
-body { height: 100vh; background-color: var(--background-color);  margin: 0 auto;  padding: 0;  font-family: $base-font-family;  font-size: $base-font-size;  color: var(--text-color);  text-align: left;  line-height: $base-line-height !important; }
-h1, h2, h3, h4, h5, h6 { font-size: $base-font-size;  margin: 0px;  margin-top: 1.5em;  font-weight: bold;  color: var(--text-color); }
+body { height: 100vh; background-color: $balling-bg;  margin: 0 auto;  padding: 1em 0;  font-family: $base-font-family;  font-size: $base-font-size;  color: var(--text-color);  text-align: left;  line-height: $base-line-height !important; }
+h1, h2, h3, h4, h5, h6 { font-size: $base-font-size;  margin: 0px;  font-weight: bold;  color: var(--text-color); }
 p, ul, ol { margin: 0px;  color: var(--text-color); }
 a { text-decoration: underline;  color: var(--link-color); }
 a:hover { color: var(--background-color); background-color: var(--base-color); }
-code { font-family: $base-font-family; }
-@media only screen and (max-device-width: 500px) { * { font-size: $mobile-font-size !important; } }
+code { font-family: $base-font-family; } @media only screen and (max-device-width: 500px) { * { font-size: $mobile-font-size !important; } }
 
 /**
  * Layout
  */
 p { word-wrap: break-word;  word-break: break-word;  white-space: pre-wrap; margin-bottom: 1em; margin-top: 1em; }
-footer { color: var(--text-color);  border-top: var(--border);  padding-top: 1em;  text-align: right; }
+footer { color: var(--text-color); text-align: right; }
 header p { text-align: left;  margin: 0; }
 
-.container { position: relative; width: $container-width;  max-width: $container-max-width;  margin-right: auto;  margin-left: auto; height: 100%;}
+.container { 
+  z-index: 10;
+  position: relative; 
+  width: $container-width;  
+  max-width: $container-max-width;  
+  margin-right: auto;  
+  margin-left: auto;
+  height: 100%;
+  box-shadow: 5px 5px 15px 5px $shadow-color;
+  background: var(--background-color);
+}
+
+#footer-content {
+  border-top: var(--border);
+  padding: 1em;
+}
 
 header, main, footer {
   position: absolute;
+  padding: 1em;
   background: var(--background-color);
   width: 100%;
 }
@@ -45,32 +62,30 @@ header, main, footer {
 
 @keyframes wipe-down {
   from { height: 0; }
-  to { height: calc(100% - 10em); }
+  to { height: calc(100% - 6em); }
 }
 
 header, footer {
   overflow: hidden;
-  animation: wipe 0.25s;
 }
 
 header {
-  margin-top: 1em;
   left: 0;
   top: 0;
-  height: 4em;
+  height: 6em;
 }
 
 main {
   top: 6em;
-  height: calc(100% - 10em);
-  padding: 1em 0;
+  height: calc(100% - 12em);
+  padding: 1em 1em;
+  overflow-y: auto;
   animation: wipe-down 1s;
-  overflow-y: scroll;
 }
 
 footer {
   bottom: 0;
-  height: 5em;
+  height: 6em;
 }
 
 
