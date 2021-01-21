@@ -4,6 +4,7 @@ $purp: #998AD3;
 $pink: #E494D3;
 $green: #C2D5A7; 
 $blue: #A3D6D4; 
+$ornj: #DF806B;
 
 /* Switch for ascii art on mobile vs. desktop */
 pre#banner-mobile { display: inline-block; }
@@ -22,6 +23,23 @@ pre.ascii-art {
 
 .center-wrapper {
   text-align: center;
+}
+
+h2 {
+  color: $purp;
+}
+
+h3 {
+  color: $green;
+}
+
+h4 {
+  text-align: center;
+  margin: 1em 0;
+}
+
+h4, .ornj {
+  color: $ornj;
 }
 
 /* Page layout customization */
@@ -54,6 +72,24 @@ p.center {
   text-align: center;
 }
 
+.menu > ul.mini {
+  text-align: left;
+}
+
+.selector li::before {
+  content: "" !important;
+}
+
+.selector a {
+  text-decoration: none;
+}
+
+.selector li:hover, .selector li:hover > a {
+  color: var(--background-color);
+  background-color: var(--base-color);
+}
+
+
 /**
  * Images
  */
@@ -71,7 +107,14 @@ img.center {
 }
 
 img.small {
- width: 20em; 
+ width: 5em; 
+}
+
+
+@media screen and (min-width: 800px) {
+  img.small {
+   width: 20em; 
+  }
 }
 
 /**
@@ -127,8 +170,9 @@ h3.project-title {
   margin: 0;
 }
 
-h4.project-tagline {
+.project-tagline {
   font-style: italic;
+  color: $green;
   margin: 0;
 }
 
@@ -156,9 +200,7 @@ div#terminal {
   width: 100%;
   min-height: 2em;
   color: #fff;
-  line-height: 2em;
-  font-weight: bold;
-  padding: 4em;
+  padding: 0 4em;
 }
 
 #scroll-indicator {
@@ -183,3 +225,6 @@ p.left-blank {
   margin-top: 10em;
 }
 
+#home-content {
+  margin: 0 4em;
+}

@@ -3,7 +3,8 @@ const path = require("path");
 const entryPoints = [
   "index",
   "404",
-  "page"
+  "page",
+  "art"
 ]
 
 module.exports = {
@@ -24,16 +25,25 @@ module.exports = {
         use: {
           loader: "babel-loader",
           options: {
-            presets: ["@babel/preset-env"],
+            presets: [["@babel/preset-env", { targets: "last 2 chrome versions" }]],
           },
         },
         exclude: [
           path.resolve(__dirname, "node_modules"),
         ],
       },
+      {
+        test: /.txt$/,
+        use: {
+          loader: "raw-loader",
+        },
+      },
     ],
   },
   resolve: {
     extensions: [".json", ".js", ".jsx"],
+  },
+  optimization: {
+    minimize: false,
   },
 };

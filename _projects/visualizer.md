@@ -1,5 +1,6 @@
 ---
 title: Music Visualizer(s)
+slug: musicvis
 tagline: Digital art that moves to the beat.
 img: /assets/img/visualizer.png
 github: https://github.com/rmw2/visualizer
@@ -7,7 +8,7 @@ live: https://robwhit.sh/visualizer
 language:
   - javascript
 technology:
-  - p5
+  - pj
 desc: >
   A fun artsy hobby project using p5.js & the webaudio interface.
   Shapes and lines move and change color in response to various features

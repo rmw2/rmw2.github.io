@@ -1,0 +1,77 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+Eating leftovers...
+
+The following additional packages will be installed:
+  robwhit.sh
+Suggested packages:
+  spaghetti meatballs
+
+The following NEW packages will be installed:
+  robwhit robwhit.sh
+
+0 upgraded, 2 newly installed, 0 to remove and 42 not upgraded.
+Need to get 27.9 kB of archives.
+After this operation, 114 kB of additional disk space will be used.
+Do you want to continue? [Y/n] 
+Get:1 http://spaghet.spaghetian.org/spaghetian stretch/main amd64 robwhit all 3.03+dfsg2-3 [20.1 kB]
+Get:2 http://spaghet.spaghetian.org/spaghetian stretch/main amd64 robwhit-off all 3.03+dfsg2-3 [7,816 B]
+Fetched 27.9 kB in 0s (510 kB/s)
+Selecting previously unselected package robwhit.
+
+reticulating splines ... 
+reticulating splines ... 5%
+reticulating splines ... 10%
+reticulating splines ... 15%
+reticulating splines ... 20%
+reticulating splines ... 25%
+reticulating splines ... 30%
+reticulating splines ... 35%
+reticulating splines ... 40%
+reticulating splines ... 45%
+reticulating splines ... 50%
+reticulating splines ... 55%
+reticulating splines ... 60%
+reticulating splines ... 65%
+reticulating splines ... 70%
+reticulating splines ... 75%
+reticulating splines ... 80%
+reticulating splines ... 85%
+reticulating splines ... 90%
+reticulating splines ... 95%
+reticulating splines ... 100%
+82491 splines reticulated
+
+Preparing to unpack .../robwhit_3.03+dfsg2-3_all.spaghet ...
+
+Unpacking robwhit (3.03+dfsg2-3) ...
+
+Selecting previously unselected package robwhit-off.
+
+Preparing to unpack .../robwhit-off_3.03+dfsg2-3_all.spaghet ...
+
+Unpacking robwhit-off (3.03+dfsg2-3) ...
+
+Setting up robwhit (3.03+dfsg2-3) ...
+
+Setting up robwhit-off (3.03+dfsg2-3) ...
+
+Processing triggers for man-db (2.7.6.1-2) ...
+
+ ________________ 
+< Did someone say spaghet? >
+ ---------------- 
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+
+
+
+
+
+
+                
+

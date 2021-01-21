@@ -24,7 +24,7 @@ my name is rob whitaker, though you may know me by one of many nicknames and dim
  - [spaghet](https://www.youtube.com/watch?v=5wLIhRXwFfI) &nbsp;&nbsp;&nbsp;*(don't toucha)*
 
 however, i do **not** respond to the following names:
- - mr. whitaker *(just call me teach)*
+ - mr. whitaker *(i hope to never get to this point)*
  - robert &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*(what, am i in trouble?)*
  - robby &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*(i can hear the difference, don't try me)*
  - bob &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;*('twas my grandfather's name)*

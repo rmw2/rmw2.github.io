@@ -1,6 +1,6 @@
 import p5 from 'p5'
 
-import DriftingParticles from './art/particles.js'
+import sketch from './art/particles.js'
 
 function setScrollIndicator() {
   let $main = document.getElementById('main')
@@ -52,7 +52,7 @@ function main() {
 
   // Set up p5 sketch on background
   console.log('making a p5')
-  window.p5 = new p5(DriftingParticles, 'bg-canvas')
+  window.p5 = new p5(sketch, 'bg-canvas')
 }
 
 // Hacky callback enqueue to ensure this runs after the page loads.

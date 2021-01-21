@@ -1,16 +1,42 @@
 import Typewriter from 'typewriter-effect/dist/core'
 
+import dump from './assets/dump.txt'
+
 function login() {
   const $terminal = document.getElementById('terminal')
   const tw = new Typewriter($terminal, {
     autoStart: false,
-    delay: 25,
+    delay: 10,
   })
 
-  tw.pasteString('localhost> ')
-    .pauseFor(2000)
-    .typeString('ssh guest@robwhit.sh<br/>')
+  tw.pasteString('<span class="green">guest</span>@<span class="purp">robwhit.sh</span>:~ $ ')
+    .pauseFor(200)
+    .typeString('sudo apt-get install robwhit.sh<br/>')
+    .pauseFor(100)
+    .pasteString('Password: ')
     .pauseFor(1000)
+    .callFunction(() => {
+      const dumpLines = dump.split('\n')
+      let i = 0
+      function dumpNext() {
+        if (i < dumpLines.length) {
+          const $line = document.createElement('pre')
+          $line.innerHTML = dumpLines[i] || ' '
+          $terminal.appendChild($line)
+          $line.scrollIntoView()
+          i++
+          setTimeout(dumpNext, 10)
+        } else {
+          window.location.replace('/～')
+        }
+      }
+      dumpNext()
+    }).start()
+
+
+
+
+    /*  .pauseFor(1000)
     .pasteString('<span class="green">guest</span>@<span class="purp">robwhit.sh</span>:~ $ ')
     .pauseFor(2000)
     .typeString('ls -F<br/>')
@@ -27,9 +53,8 @@ function login() {
     .pauseFor(100)
     .pasteString('robwhit -rwx--x--x<br/>')
     .pasteString('<span class="green">guest</span>@<span class="purp">robwhit.sh</span>:~ $ ')
-    .pauseFor(2000) .typeString('./robwhit.sh') .pauseFor(2000) .typeString('<br/>') .pauseFor(500) .callFunction(() => { console.log('in the callback')
-      window.location.replace('/～')
-    }).start()
+    .pauseFor(2000) .typeString('./robwhit.sh') .pauseFor(2000) .typeString('<br/>') .pauseFor(500) 
+    */
 }
 
 

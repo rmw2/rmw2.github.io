@@ -1,7 +1,6 @@
-
 const FRAME_RATE = 30
 
-export default function DriftingParticles(p) {
+export default function sketch(p) {
   let swarm 
   p.setup = function setup() {
     p.frameRate(FRAME_RATE)
@@ -15,12 +14,14 @@ export default function DriftingParticles(p) {
   }
 }
 
+const GRAVITATIONAL_CONSTANT = 10e7
 const CONNECT_THRESHOLD = 100
+const N_PARTICLES = 50 
 const MAX_VELOCITY = 3
-const GRAVITATIONAL_CONSTANT = 100000
+const MAX_R = 8
 
 class ParticleSwarm {
-  constructor(width, height, n = 100) {
+  constructor(width, height, n = N_PARTICLES) {
     this.particles = new Array(n).fill(0).map(_ => new Particle(width, height))
   }
 
@@ -59,7 +60,6 @@ class ParticleSwarm {
           let closeness = CONNECT_THRESHOLD / dist
           let opacity = Math.min(0.05 * closeness, 0.9)
           let color = `rgba(255,255,255,${opacity.toFixed(2)})`
-          console.log(color)
           p.stroke(color)
           p.line(x1, y1, x2, y2)
         }
@@ -68,7 +68,6 @@ class ParticleSwarm {
   }
 }
 
-const MAX_R = 8
 
 class Particle {
   constructor(width, height) {
@@ -94,7 +93,7 @@ class Particle {
   update() {
     // Slow down if we hit some max.
     if (Math.abs(this.vx) > MAX_VELOCITY) {
-      this.vx *= 0.95
+      this.vx *= 0.98
     }
     if (Math.abs(this.vy) > MAX_VELOCITY) {
       this.vy *= 0.95    

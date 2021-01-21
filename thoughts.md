@@ -3,5 +3,12 @@ layout: page
 title: ~/thoughts
 permalink: /thoughts/
 ---
+#### &nbsp;
 
-# i think sometimes
+#### &nbsp;
+
+#### &nbsp;
+
+#### &nbsp;
+
+#### [ head empty ]

@@ -1,4 +1,5 @@
 ---
+published: true
 title: Processable
 tagline: An x86 process emulator and visual inspector/debugger for the browser.
 img: /assets/img/processable.png

@@ -40,6 +40,18 @@ header p { text-align: left;  margin: 0; }
   height: 100%;
   box-shadow: 5px 5px 15px 5px $shadow-color;
   background: var(--background-color);
+  animation: all 1s linear;
+}
+
+.container.mini {
+  margin-left: 1em;
+  height: 6em;
+  width: 10em;
+}
+
+.container.mini > footer, 
+.container.mini > main {
+  display: none;
 }
 
 #footer-content {

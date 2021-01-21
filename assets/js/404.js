@@ -1,1 +1,11 @@
-(()=>{var a=window.location.pathname;if(a.startsWith("/~")){var i="/～"+a.substring(2);window.location.replace(i)}})();
+/******/ (() => { // webpackBootstrap
+// Hacky catch for using the real tilde character.
+// We save people here by swapping in the right character.
+let path = window.location.pathname;
+
+if (path.startsWith('/~')) {
+  let redirect = '/～' + path.substring(2);
+  window.location.replace(redirect);
+}
+/******/ })()
+;

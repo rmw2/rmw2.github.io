@@ -6,6 +6,7 @@ layout: page
 
 <div id="projects-list">
 {% for proj in site.projects %}
+{% if proj.published %}
   <div class="project {% cycle "left", "right" %}">
     <img width="150" class="project-img" src="{{ proj.img | relative_url }}"/>
     <div class="project-details">
@@ -16,10 +17,11 @@ layout: page
           {% if proj.live != "" %}<a class="project-live" href="{{ proj.live }}">&roarr; check it out!</a>{% endif %}
         </div>
       </div>
-      <h4 class="project-tagline">{{ proj.tagline }}</h4>
+      <span class="project-tagline">{{ proj.tagline }}</span>
       <span class="project-desc">{{ proj.desc }}</span>
       <a class="project-homepage" href="{{ proj.permalink | absolute_url }}">read more</a>
     </div>
   </div>
+{% endif %}
 {% endfor %}
 </div>

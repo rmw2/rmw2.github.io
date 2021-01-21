@@ -40,7 +40,7 @@ header_pages:
   - ～.md
   - me.md
   - projects.md
-    #  - thoughts.md
+  - thoughts.md
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list
