@@ -12,8 +12,6 @@ function login() {
   tw.pasteString('<span class="green">guest</span>@<span class="purp">robwhit.sh</span>:~ $ ')
     .pauseFor(200)
     .typeString('sudo apt-get install robwhit.sh<br/>')
-    .pauseFor(100)
-    .pasteString('Password: ')
     .pauseFor(1000)
     .callFunction(() => {
       const dumpLines = dump.split('\n')
