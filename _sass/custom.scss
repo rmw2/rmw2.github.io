@@ -193,6 +193,10 @@ h3.project-title {
   div.project-links {
     width: 40%;
   }
+
+  div#home-content, div#terminal {
+    margin: 0 4em;
+  }
 }
 
 /* Homepage styles */
@@ -200,7 +204,6 @@ div#terminal {
   width: 100%;
   min-height: 2em;
   color: #fff;
-  padding: 0 4em;
 }
 
 #scroll-indicator {
@@ -225,6 +228,3 @@ p.left-blank {
   margin-top: 10em;
 }
 
-#home-content {
-  margin: 0 4em;
-}
