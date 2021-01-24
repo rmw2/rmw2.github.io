@@ -4,7 +4,8 @@ const entryPoints = [
   "index",
   "404",
   "page",
-  "art"
+  "art",
+  "home",
 ]
 
 module.exports = {
