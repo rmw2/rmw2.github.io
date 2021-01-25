@@ -5,23 +5,23 @@ function setupHotkeys() {
   window.addEventListener('keydown', function (event) {
     switch (event.key) {
       case '0':
-        window.location.assign('/blank');
+        window.location.assign('/～/blank');
         break;
 
       case '1':
-        window.location.assign('/me');
+        window.location.assign('/～/me');
         break;
 
       case '2':
-        window.location.assign('/projects');
+        window.location.assign('/～/projects');
         break;
 
       case '3':
-        window.location.assign('/README');
+        window.location.assign('/～/README');
         break;
 
       case '4':
-        window.location.assign('/thoughts');
+        window.location.assign('/～/thoughts');
         break;
 
       case 's':
