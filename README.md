@@ -14,10 +14,4 @@ to keep with the terminal/shell theme, text pages are printed sorta like they wo
 
 #### [ hacks ] 
 
-the homepage is named with a tilde to keep with the whole shell theme, but this creates some
-(maybe predictable) challenges.  it seems that jekyll doesn't like it if pages are named with
-`~`, nor can i use `/~` as a permalink on a page with a different name.  but i'm determined
-and stubborn, so using the magic of unicode we fake it with the similar-enough "full-width tilde" 
-character: `～`. then we use this character both to name the page's markdown file and the permalink in 
-its frontmatter.  as a last spicy complication, the jekyll `relative_url` filter seems to replace
-`～` with `~`, so in a risky bet, we just skip this filter when generating the nav bar (in `_includes/header.html`) and voilà.  of course no one could ever be expected to type the correct tilde, so with a tricky little bit of javascript served on the 404 page, we rewrite any url starting with `~` to its equivalent using the jekyll-supported `～`.  this was a massive pain in the ass.
+the homepage is named with a tilde to keep with the whole shell theme, but this creates some (maybe predictable) challenges.  it seems that jekyll doesn't like it if pages are named with `~`, nor can i use `/~` as a permalink on a page with a different name.  but i'm determined and stubborn, so using the magic of unicode we fake it with the similar-enough "full-width tilde"  character: `～`. then we use this character both to name the page's markdown file and the permalink in  its frontmatter.  as a last spicy complication, the jekyll `relative_url` filter seems to replace `～` with `~`, so in a risky bet, we just skip this filter when generating the nav bar (in `_includes/header.html`) and voilà.  of course no one could ever be expected to type the correct tilde, so with a tricky little bit of javascript served on the 404 page, we rewrite any url starting with `~` to its equivalent using the jekyll-supported `～`.  this was a massive pain in the ass.

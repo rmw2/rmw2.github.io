@@ -1,5 +1,7 @@
 /******/ (() => { // webpackBootstrap
 function setupHotkeys() {
+  // This is tightly coupled to the list in the home markdown file.
+  // TODO: combine these, maybe with react.
   window.addEventListener('keydown', function (event) {
     switch (event.key) {
       case '0':

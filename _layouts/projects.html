@@ -13,13 +13,13 @@ layout: page
       <div class="project-header">
         <h3 class="project-title">{{ proj.title }}</h3>
         <div class="project-links">
-          {% if proj.github != "" %}<a class="project-github" href="{{ proj.github }}">&roarr; github</a>{% endif %}
-          {% if proj.live != "" %}<a class="project-live" href="{{ proj.live }}">&roarr; check it out!</a>{% endif %}
+          {% if proj.github %}<a class="project-github" href="{{ proj.github }}">&roarr; github</a>{% endif %}
+          {% if proj.live %}<a class="project-live" href="{{ proj.live }}">&roarr; check it out!</a>{% endif %}
         </div>
       </div>
       <span class="project-tagline">{{ proj.tagline }}</span>
       <span class="project-desc">{{ proj.desc }}</span>
-      <a class="project-homepage" href="{{ proj.permalink | absolute_url }}">read more</a>
+      <!--<a class="project-homepage" href="{{ proj.permalink | absolute_url }}">read more</a>-->
     </div>
   </div>
 {% endif %}
