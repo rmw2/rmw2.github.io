@@ -7,7 +7,6 @@ function setScrollIndicator() {
   let $scroll = document.getElementById('scroll-indicator-content') 
 
   let distanceToBottom = $main.scrollHeight - $main.scrollTop - $main.clientHeight
-  console.log(`${distanceToBottom} = ${$main.scrollHeight} - ${$main.scrollTop} - ${$main.clientHeight}`)
   if (distanceToBottom < 1)  {
     $scroll.innerHTML = '(EOF)'
   } else {
@@ -51,7 +50,6 @@ function main() {
   setTimeout(setScrollIndicator, 1000)
 
   // Set up p5 sketch on background
-  console.log('making a p5')
   window.p5 = new p5(sketch, 'bg-canvas')
 }
 
