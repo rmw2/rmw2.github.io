@@ -1,7 +1,7 @@
 ---
 layout: page
 title: ~/me
-permalink: /me
+permalink: /～/me/
 ---
 
 # hello `$friend`,

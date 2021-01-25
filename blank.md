@@ -1,5 +1,7 @@
 ---
 layout: page
+title: ~/blank
+permalink: /～/blank/
 ---
 
  this page is intentionally left blank 

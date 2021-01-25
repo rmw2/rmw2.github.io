@@ -1,7 +1,7 @@
 ---
 layout: page
 title: ~/thoughts
-permalink: /thoughts/
+permalink: /～/thoughts/
 ---
 #### &nbsp;
 

@@ -1,6 +1,6 @@
 ---
 layout: projects
 title: ~/projects
-permalink: /projects/
+permalink: /～/projects/
 ---
 
