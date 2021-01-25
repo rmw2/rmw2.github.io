@@ -78,7 +78,9 @@ var core_default = /*#__PURE__*/__webpack_require__.n(core);
 
 function login() {
   const $terminal = document.getElementById('terminal');
-  const tw = new (core_default())($terminal, {
+  const $line = document.createElement('pre');
+  $terminal.appendChild($line);
+  const tw = new (core_default())($line, {
     autoStart: false,
     delay: 10
   });

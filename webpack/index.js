@@ -4,7 +4,9 @@ import dump from './assets/dump.txt'
 
 function login() {
   const $terminal = document.getElementById('terminal')
-  const tw = new Typewriter($terminal, {
+  const $line = document.createElement('pre')
+  $terminal.appendChild($line)
+  const tw = new Typewriter($line, {
     autoStart: false,
     delay: 10,
   })

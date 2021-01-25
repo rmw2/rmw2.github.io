@@ -194,8 +194,12 @@ h3.project-title {
     width: 40%;
   }
 
-  div#home-content, div#terminal {
+  div#home-content {
     margin: 0 4em;
+  }
+
+  div#terminal > pre {
+    margin-left: 4em;
   }
 }
 
