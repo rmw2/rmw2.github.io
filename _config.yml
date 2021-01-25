@@ -33,7 +33,17 @@ theme: jekyll-theme-console
 collections:
   projects:
     output: true
-    permalink: /:collection/:title
+    permalink: /～/:collection/:title
+  thoughts:
+    output: true
+    permalink: /～/:collection/:slug
+
+defaults:
+  - scope:
+      path: ""
+      type: "thoughts"
+    values:
+      layout: "page"
 
 style: dark
 header_pages:

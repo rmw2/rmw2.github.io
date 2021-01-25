@@ -141,6 +141,10 @@ div.project {
   flex-direction: column;
 }
 
+span.project-desc > p {
+  margin: 0;
+}
+
 img.project-img {
   margin: 1em;
 }

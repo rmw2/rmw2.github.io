@@ -18,7 +18,7 @@ layout: page
         </div>
       </div>
       <span class="project-tagline">{{ proj.tagline }}</span>
-      <span class="project-desc">{{ proj.desc }}</span>
+      <span class="project-desc">{{ proj.desc | markdownify }}</span>
       <!--<a class="project-homepage" href="{{ proj.permalink | absolute_url }}">read more</a>-->
     </div>
   </div>
