@@ -23,11 +23,26 @@ export default function sketch(p) {
   }
 }
 
+export function subway(p) {
+  let lattice
+  p.setup = function() {
+    p.frameRate(60)
+    p.createCanvas(p.windowWidth, p.windowHeight)
+    lattice = new Subway(p.windowWidth, p.windowHeight)
+  }
+
+  p.draw = function() {
+    p.background(0)
+    lattice.draw(p)
+    lattice.update()
+  }
+}
+
 
 class LatticeWiggler {
-  constructor(w, h, {radius, colormap, max, bias} = {radius: 10, colormap: hsv, bias: 0.8}) {
+  constructor(w, h, {directions, radius, colormap, max, bias, tightness} = {tightness: -1.2, directions: EIGHT, radius: 10, colormap: hsv, bias: 0.5}) {
     Object.assign(this, {
-      w, h, radius, colormap,
+      w, h, radius, colormap, directions, tightness, bias,
       cols: Math.floor(w / (2 * radius)),
       rows: Math.floor(h / (2 * radius)),
     })
@@ -55,7 +70,7 @@ class LatticeWiggler {
   }
 
   draw(p) {
-    p.curveTightness(-1.2)
+    p.curveTightness(this.tightness)
     p.noFill()
     for (const [i, j] of this.path) {
       this.lattice[i][j].draw(p)
@@ -70,13 +85,13 @@ class LatticeWiggler {
     this.prev = this.dir
     
     this.dir = this.move()
-    const [stepX, stepY] = directions[this.dir]
+    const [stepX, stepY] = this.directions[this.dir]
     
     // Update previous lattice point now that direciton is picked.
     this.lattice[this.x][this.y]
       .setDirection(
-        directions[opp[this.prev]], 
-        directions[this.dir])
+        this.directions[OPP[this.prev]], 
+        this.directions[this.dir])
 
     // Play with the color a lil bit.
     this.lattice[this.x][this.y].color = this.colormap[this.colorIdx]
@@ -97,25 +112,28 @@ class LatticeWiggler {
     }
   }
 
-  move() {
-    // Update direction by calculating allowed dirs and selecting randomly.
-    let canContinue = false
-    let couldContinue = false
-    const outOfBounds = (stepX, stepY) => (
+  outOfBounds(stepX, stepY) {
+    return  (
       this.x + stepX >= this.cols
       || this.x + stepX < 0
       || this.y + stepY >= this.rows
       || this.y + stepY < 0
     )
+  }
 
+
+  move() {
+    // Update direction by calculating allowed dirs and selecting randomly.
+    let canContinue = false
+    let couldContinue = false
     const bestDirs = []
     const preferredDirs = []
     const allowedDirs = []
 
     // Check each direction for viability
-    for (let d of Object.keys(directions)) {
-      let [stepX, stepY] = directions[d]
-      if (d == opp[this.prev] || outOfBounds(stepX, stepY))
+    for (let d of Object.keys(this.directions)) {
+      let [stepX, stepY] = this.directions[d]
+      if (d == OPP[this.prev] || this.outOfBounds(stepX, stepY))
         continue
       allowedDirs.push(d)
 
@@ -143,6 +161,40 @@ class LatticeWiggler {
   }
 }
 
+class Subway extends LatticeWiggler {
+  constructor(w, h, opts) {
+    super(w, h, opts) 
+    this.max = Number.MAX_SAFE_INTEGER
+    this.tightness = 0
+    this.directions = FOUR
+    // Initialize lattice of empty cells
+    this.lattice = new Array(this.cols).fill(null).map((_,i) =>
+      new Array(this.rows).fill(null).map((_, j) => 
+        new Cell((2*i + 1) * this.radius, (2*j + 1) * this.radius, {r: this.radius, dots: true})
+      )
+    )
+  }
+
+  colorBreathe() {}
+
+  move() {
+    const allowedDirs = []
+    let canContinue = false
+    // Check each direction for viability
+    for (let d of Object.keys(this.directions)) {
+      let [stepX, stepY] = this.directions[d]
+      if (d == OPP[this.prev] || this.outOfBounds(stepX, stepY))
+        continue
+      if (d == this.dir)
+        canContinue = true
+      allowedDirs.push(d)
+    }
+    if (canContinue && Math.random() < this.bias)
+      return this.dir
+    return randomItem(allowedDirs)
+  }
+}
+
 function cycleWalk(len, i, step = 1) {
   // Update between -step and step
   const update = Math.round(step * (2 * Math.random() - 1))
@@ -162,7 +214,7 @@ function cycleAvg(len, a, b) {
 }
 
 class Cell {
-  constructor(x, y, {r, color, stroke}) {
+  constructor(x, y, {r, color, stroke, dots}) {
     // x & y represent top left corner of box
     Object.assign(this, {
       x, y, 
@@ -193,6 +245,10 @@ class Cell {
     p.stroke(this.color)
     p.strokeWeight(this.stroke)
     p.curve(xp, yp, x1, y1, x2, y2, xa, ya)
+    if (this.dots && dxStart == -dxEnd && dyStart == -dyEnd) {
+      p.stroke('#fff')
+      p.point(this.x, this.y)
+    }
   }
 
   setDirection(start, end) {
@@ -205,7 +261,7 @@ class Cell {
   }
 }
 
-const directions = {
+const EIGHT = {
   NW: [-1, -1],
   N: [0, -1],
   NE: [1, -1],
@@ -216,7 +272,14 @@ const directions = {
   W: [-1, 0],
 }
 
-const opp = {
+const FOUR = {
+  N: [0, -1],
+  E: [1, 0],
+  S: [0, 1],
+  W: [-1, 0],
+}
+
+const OPP = {
   N: 'S',
   S: 'N',
   E: 'W',
