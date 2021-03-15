@@ -90099,6 +90099,7 @@ function sketch(p) {
   let swarm;
 
   p.setup = function setup() {
+    p.background(0);
     p.frameRate(FRAME_RATE);
     p.createCanvas(p.windowWidth, p.windowHeight);
     swarm = new ParticleSwarm(p.windowWidth, p.windowHeight);
