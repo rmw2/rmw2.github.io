@@ -36,7 +36,7 @@ export default function sketch(p) {
   p.draw = function draw() {
     p.background(0,0,0,200)
     dsp.update()
-
+    p.noStroke()
     for (const s of sprites) {
       s.draw(p)
     }
