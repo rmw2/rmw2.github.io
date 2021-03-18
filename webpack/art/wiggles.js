@@ -6,14 +6,30 @@ const hsv = colormap({
   format: 'hex',
 })
 
-const FRAME_RATE = 30
+const FRAME_RATE = 60
+const MOBILE_SIZE = 650
 
-export default function sketch(p) {
+export function squareWiggles(p) {
   let lattice
   p.setup = function() {
     p.frameRate(FRAME_RATE)
     p.createCanvas(p.windowWidth, p.windowHeight)
-    lattice = new LatticeWiggler(p.windowWidth, p.windowHeight)
+    lattice = new LatticeWiggler(p.windowWidth, p.windowHeight, {directions: FOUR})
+  }
+
+  p.draw = function() {
+    p.background(0)
+    lattice.draw(p)
+    lattice.update()
+  }
+}
+
+export function wiggles(p) {
+  let lattice
+  p.setup = function() {
+    p.frameRate(FRAME_RATE)
+    p.createCanvas(p.windowWidth, p.windowHeight)
+    lattice = new LatticeWiggler(p.windowWidth, p.windowHeight, {directions: EIGHT})
   }
 
   p.draw = function() {
@@ -40,19 +56,26 @@ export function subway(p) {
 
 
 class LatticeWiggler {
-  constructor(w, h, {directions, radius, colormap, max, bias, tightness} = {tightness: -1.2, directions: EIGHT, radius: 10, colormap: hsv, bias: 0.5}) {
+  constructor(w, h, {directions, radius, colormap, max, bias, tightness}) {
     Object.assign(this, {
-      w, h, radius, colormap, directions, tightness, bias,
-      cols: Math.floor(w / (2 * radius)),
-      rows: Math.floor(h / (2 * radius)),
+      w, h, 
+      radius: radius || 10, 
+      colormap: colormap || hsv, 
+      directions: directions || EIGTH, 
+      tightness: tightness || -1.2, 
+      bias: bias || 0.5,
+    })
+    // Calculated properties
+    Object.assign(this, {
+      cols: Math.floor(w / (2 * this.radius)),
+      rows: Math.floor(h / (2 * this.radius)),
     })
 
-    this.max = max || this.rows * this.cols / 3
-
     // Initialize lattice of empty cells
+    console.log(`w: ${w}, h: ${h}, rows: ${this.rows}, cols: ${this.cols}`)
     this.lattice = new Array(this.cols).fill(null).map((_,i) =>
       new Array(this.rows).fill(null).map((_, j) => 
-        new Cell((2*i + 1) * radius, (2*j + 1) * radius, {r: radius})
+        new Cell((2*i + 1) * this.radius, (2*j + 1) * this.radius, {r: this.radius})
       )
     )
 
@@ -60,13 +83,15 @@ class LatticeWiggler {
     this.y = Math.floor(this.rows / 2)
     this.dir = randomKey(directions)
     this.prev = this.dir
+
     // Keep a reverse colormap for going backwards.
     this.colorIdx = 0
-    this.mapcolor = colormap.reduce((acc, curr, i) => ({[curr]: i, ...acc}), {})
-    console.log(this.mapcolor)
+    this.mapcolor = this.colormap.reduce((acc, curr, i) => ({[curr]: i, ...acc}), {})
 
     // Keep track of previous points for walking back.
-    this.path = []
+    let area = this.cols * this.rows
+    let pathLength = this.cols < MOBILE_SIZE ? area / 2 : area / 4
+    this.path = new LatticeBuffer(this.cols, this.rows, pathLength)
   }
 
   draw(p) {
@@ -78,9 +103,8 @@ class LatticeWiggler {
   }
 
   update() { 
-    this.path.unshift([this.x, this.y])
-    if (this.path.length > this.max)
-      this.path.pop()
+    // Add current point to the path.
+    this.path.push([this.x, this.y])
 
     this.prev = this.dir
     
@@ -138,7 +162,7 @@ class LatticeWiggler {
       allowedDirs.push(d)
 
       // Prefer not revisiting the same cell.
-      if (this.lattice[this.x + stepX][this.y + stepY].isEmpty()) {
+      if (!this.path.contains(this.x + stepX, this.y + stepY)) {
         if (d == this.dir)
           couldContinue = true
         preferredDirs.push(d)
@@ -146,8 +170,7 @@ class LatticeWiggler {
 
       // Most prefer not crossing lines at all.
       if (false) {
-        if (d == this.dir) 
-          canContinue = true
+
       }
     } 
 
@@ -299,3 +322,74 @@ function randomKey(obj) {
 function randomItem(list) {
   return list[Math.floor(Math.random() * list.length)]
 }
+
+
+/**
+ * LatticeBuffer keeps track of a set of points (up to a given limit) on a 2d lattice.
+ * Pushing to the buffer adds the new point, and removes the least recently added point
+ * if the buffer is larger than its limit.  LatticeBuffer also upports querying membership 
+ * of given point in the buffer. Duplicating points in the buffer are supported. 
+ */
+class LatticeBuffer {
+  constructor(width, height, capacity = 1000) {
+    // 2D array keep track of number of references to each point in the buffer.
+    this.lattice = 
+      new Array(height).fill(null).map(() =>
+        new Array(width).fill(0))
+    
+    this.capacity = capacity
+    this.buf = new Array(capacity).fill([])
+    this.head = 0
+    this.tail = 0
+    this.length = 0
+  }
+
+  push([x, y]) {
+    this.buf[this.head] = [x, y]
+    this.head = (this.head + 1) % this.capacity
+    this.lattice[x][y]++ 
+    if (this.length < this.capacity) {
+      this.length++
+    } else {
+      this.tail = (this.tail + 1) % this.capacity
+    }
+  }
+
+  pop() {
+    let [x, y] = this.buf[this.head]
+    this.buf[this.head] = []
+    // Negative numbers mod negative, so ensure we always have a positive index.
+    this.head = (this.capacity + this.head - 1) % this.capacity
+    this.lattice[x][y]--
+    this.length--
+  }
+
+  contains(x, y) {
+    return this.lattice[x][y] > 0
+  }
+
+  toArray() {
+    let arr = new Array(this.length).fill([])
+    for (
+        let iBuf = this.tail, iArr = 0; 
+        iArr < this.length; 
+        iBuf = (iBuf + 1) % this.capacity, iArr++
+      ) {
+      arr[iArr] = this.buf[iBuf]
+    }
+    return arr
+  }
+
+  *[Symbol.iterator]() {
+    let n = this.length 
+    for (
+        let iBuf = this.tail, iArr = 0;
+        iArr < this.length;
+        iBuf = (iBuf + 1) % this.capacity, iArr++
+    ) {
+      yield this.buf[iBuf]
+    }
+  }
+}
+
+class Mobility {}
