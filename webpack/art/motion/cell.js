@@ -1,6 +1,6 @@
 
 export class Cell {
-  constructor(x, y, {r, color, stroke, dots, useCache}) {
+  constructor(x, y, {r, color, stroke, dots, useCache = true} = {}) {
     // x & y represent top left corner of box
     Object.assign(this, {
       x, y, 
@@ -8,7 +8,7 @@ export class Cell {
       color: color || '#fff', 
       stroke: stroke || 5,
       dots: dots || false,
-      useCache: useCache || true,
+      useCache: useCache,
       rendered: true,
     }) 
     this.start = null
@@ -16,8 +16,12 @@ export class Cell {
   }
 
   draw(p) { 
-    if (this.useCache && this.rendered) {
-      return
+    if (this.useCache) {
+      if (this.rendered) return
+      // Start by clearing square
+      p.fill(0)
+      p.noStroke()
+      p.rect(this.x - this.r, this.y - this.r, 2*this.r, 2*this.r)
     }
 
     if (this.dots) {
@@ -27,9 +31,6 @@ export class Cell {
     }
 
     if (!this.start || !this.end) {
-      p.fill(0)
-      p.noStroke()
-      p.rect(this.x - this.r, this.y - this.r, 2*this.r, 2*this.r)
       return
     }
 
