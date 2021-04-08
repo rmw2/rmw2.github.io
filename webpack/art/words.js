@@ -59,8 +59,13 @@ export function emma(p) {
     })
 
     p.background(0)
+    // Text location
     tx = W / 2
     ty = H / 2 - 200
+
+    p.textAlign(p.CENTER, p.CENTER)
+    p.textSize(36)
+    p.textFont('Comic Sans')
   }
 
   p.draw = function() {
@@ -73,9 +78,6 @@ export function emma(p) {
       bg.draw(p)
 
       // Draw birthday message
-      p.textAlign(p.CENTER, p.CENTER)
-      p.textSize(36)
-      p.textFont('Comic Sans')
       p.fill(55 + 200 * dsp.treble)
 
       if (Math.random() < 0.05) {
@@ -92,6 +94,9 @@ export function emma(p) {
 
     if (playing) {
       fg.update()
+    } else {
+      p.fill(255)
+      p.text('click me :)', W/2, H/2)
     }
   }
   
