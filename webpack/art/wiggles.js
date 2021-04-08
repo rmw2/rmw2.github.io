@@ -1,4 +1,7 @@
 import colormap from 'colormap'
+import { LatticePath } from './motion/lattice'
+import { PathAvoidingStragegy, FOUR, EIGHT, OPP } from './motion/strategies'
+import Cell from './motion/cell'
 
 const hsv = colormap({
   colormap: 'hsv',
@@ -56,12 +59,12 @@ export function subway(p) {
 
 
 class LatticeWiggler {
-  constructor(w, h, {directions, radius, colormap, max, bias, tightness}) {
+  constructor(w, h, {directions, radius, colormap, max, bias, tightness} = {}) {
     Object.assign(this, {
       w, h, 
       radius: radius || 10, 
       colormap: colormap || hsv, 
-      directions: directions || EIGTH, 
+      directions: directions || EIGHT, 
       tightness: tightness || -1.2, 
       bias: bias || 0.5,
     })
@@ -81,7 +84,7 @@ class LatticeWiggler {
 
     this.x = Math.floor(this.cols / 2)
     this.y = Math.floor(this.rows / 2)
-    this.dir = randomKey(directions)
+    this.dir = randomKey(this.directions)
     this.prev = this.dir
 
     // Keep a reverse colormap for going backwards.
@@ -90,8 +93,8 @@ class LatticeWiggler {
 
     // Keep track of previous points for walking back.
     let area = this.cols * this.rows
-    let pathLength = this.cols < MOBILE_SIZE ? area / 2 : area / 4
-    this.path = new LatticeBuffer(this.cols, this.rows, pathLength)
+    let pathLength = Math.floor(this.cols < MOBILE_SIZE ? area / 2 : area / 4)
+    this.path = new LatticePath(this.cols, this.rows, pathLength)
   }
 
   draw(p) {
@@ -136,7 +139,7 @@ class LatticeWiggler {
     }
   }
 
-  outOfBounds(stepX, stepY) {
+  isOutOfBounds(stepX, stepY) {
     return  (
       this.x + stepX >= this.cols
       || this.x + stepX < 0
@@ -157,7 +160,7 @@ class LatticeWiggler {
     // Check each direction for viability
     for (let d of Object.keys(this.directions)) {
       let [stepX, stepY] = this.directions[d]
-      if (d == OPP[this.prev] || this.outOfBounds(stepX, stepY))
+      if (d == OPP[this.prev] || this.isOutOfBounds(stepX, stepY))
         continue
       allowedDirs.push(d)
 
@@ -185,7 +188,7 @@ class LatticeWiggler {
 }
 
 class Subway extends LatticeWiggler {
-  constructor(w, h, opts) {
+  constructor(w, h, opts = {}) {
     super(w, h, opts) 
     this.max = Number.MAX_SAFE_INTEGER
     this.tightness = 0
@@ -206,7 +209,7 @@ class Subway extends LatticeWiggler {
     // Check each direction for viability
     for (let d of Object.keys(this.directions)) {
       let [stepX, stepY] = this.directions[d]
-      if (d == OPP[this.prev] || this.outOfBounds(stepX, stepY))
+      if (d == OPP[this.prev] || this.isOutOfBounds(stepX, stepY))
         continue
       if (d == this.dir)
         canContinue = true
@@ -236,83 +239,6 @@ function cycleAvg(len, a, b) {
   return Math.round((a + b) / 2)
 }
 
-class Cell {
-  constructor(x, y, {r, color, stroke, dots}) {
-    // x & y represent top left corner of box
-    Object.assign(this, {
-      x, y, 
-      r: r || 10, 
-      color: color || '#fff', 
-      stroke: stroke || 5,
-    }) 
-    this.start = null
-    this.end = null
-  }
-
-  draw(p) { 
-    if (!this.start || !this.end) return
-    const [dxStart, dyStart] = this.start
-    const [dxEnd, dyEnd] = this.end
-    // Current points on the edges of this cell. 
-    const x1 = this.x + dxStart * this.r
-    const y1 = this.y + dyStart * this.r
-    const x2 = this.x + dxEnd * this.r
-    const y2 = this.y + dyEnd * this.r
-
-    // Previous and next centers, for curve making
-    const xp = this.x + 2 * dxStart * this.r
-    const yp = this.y + 2 * dyStart * this.r
-    const xa = this.x + 2 * dxEnd * this.r
-    const ya = this.y + 2 * dyEnd * this.r
-
-    p.stroke(this.color)
-    p.strokeWeight(this.stroke)
-    p.curve(xp, yp, x1, y1, x2, y2, xa, ya)
-    if (this.dots && dxStart == -dxEnd && dyStart == -dyEnd) {
-      p.stroke('#fff')
-      p.point(this.x, this.y)
-    }
-  }
-
-  setDirection(start, end) {
-    this.start = start
-    this.end = end
-  }
-
-  isEmpty() {
-    return !this.start || !this.end
-  }
-}
-
-const EIGHT = {
-  NW: [-1, -1],
-  N: [0, -1],
-  NE: [1, -1],
-  E: [1, 0],
-  SE: [1, 1],
-  S: [0, 1],
-  SW: [-1, 1],
-  W: [-1, 0],
-}
-
-const FOUR = {
-  N: [0, -1],
-  E: [1, 0],
-  S: [0, 1],
-  W: [-1, 0],
-}
-
-const OPP = {
-  N: 'S',
-  S: 'N',
-  E: 'W',
-  W: 'E',
-  NW: 'SE',
-  SE: 'NW',
-  NE: 'SW',
-  SW: 'NE',
-}
-
 function randomKey(obj) {
   const keys = Object.keys(obj)
   const idx = Math.floor(Math.random() * keys.length)
@@ -324,72 +250,3 @@ function randomItem(list) {
 }
 
 
-/**
- * LatticeBuffer keeps track of a set of points (up to a given limit) on a 2d lattice.
- * Pushing to the buffer adds the new point, and removes the least recently added point
- * if the buffer is larger than its limit.  LatticeBuffer also upports querying membership 
- * of given point in the buffer. Duplicating points in the buffer are supported. 
- */
-class LatticeBuffer {
-  constructor(width, height, capacity = 1000) {
-    // 2D array keep track of number of references to each point in the buffer.
-    this.lattice = 
-      new Array(height).fill(null).map(() =>
-        new Array(width).fill(0))
-    
-    this.capacity = capacity
-    this.buf = new Array(capacity).fill([])
-    this.head = 0
-    this.tail = 0
-    this.length = 0
-  }
-
-  push([x, y]) {
-    this.buf[this.head] = [x, y]
-    this.head = (this.head + 1) % this.capacity
-    this.lattice[x][y]++ 
-    if (this.length < this.capacity) {
-      this.length++
-    } else {
-      this.tail = (this.tail + 1) % this.capacity
-    }
-  }
-
-  pop() {
-    let [x, y] = this.buf[this.head]
-    this.buf[this.head] = []
-    // Negative numbers mod negative, so ensure we always have a positive index.
-    this.head = (this.capacity + this.head - 1) % this.capacity
-    this.lattice[x][y]--
-    this.length--
-  }
-
-  contains(x, y) {
-    return this.lattice[x][y] > 0
-  }
-
-  toArray() {
-    let arr = new Array(this.length).fill([])
-    for (
-        let iBuf = this.tail, iArr = 0; 
-        iArr < this.length; 
-        iBuf = (iBuf + 1) % this.capacity, iArr++
-      ) {
-      arr[iArr] = this.buf[iBuf]
-    }
-    return arr
-  }
-
-  *[Symbol.iterator]() {
-    let n = this.length 
-    for (
-        let iBuf = this.tail, iArr = 0;
-        iArr < this.length;
-        iBuf = (iBuf + 1) % this.capacity, iArr++
-    ) {
-      yield this.buf[iBuf]
-    }
-  }
-}
-
-class Mobility {}

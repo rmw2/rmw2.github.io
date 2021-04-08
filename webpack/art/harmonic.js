@@ -57,7 +57,7 @@ export default function sketch(p) {
   p.touchStarted = toggle
 }
 
-class MusicalHarmonicSpirals extends HarmonicSpirals {
+export class MusicalHarmonicSpirals extends HarmonicSpirals {
   constructor(dsp, cx, cy, {...rest}) {
     super(cx, cy, {...rest}) 
 
@@ -68,7 +68,6 @@ class MusicalHarmonicSpirals extends HarmonicSpirals {
     const { logSpectrum, bass, centroid } = this.dsp
 
     let centroidOffset = Math.trunc(centroid / 20)
-    console.log(centroidOffset % this.colors.length)
     this.spirals.map((s, i) => {
       s.circleRadius = this.circleRadius * (0.1 + 3 * logSpectrum[i + 5] * logSpectrum[i + 5] * logSpectrum[i + 5])
       s.innerRadius = this.innerRadius * (1 + bass)

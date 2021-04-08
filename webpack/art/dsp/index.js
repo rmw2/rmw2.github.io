@@ -8,7 +8,7 @@ export default class DSP {
     this._amp = new p5.Amplitude()
     this._amp.setInput(input)
     
-    this._fft = new p5.FFT()
+    this._fft = new p5.FFT(0.2)
     this._fft.setInput(input)
     input.connect(this._fft)
 
